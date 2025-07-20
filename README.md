@@ -27,6 +27,28 @@ A full-stack, real-time issue tracking system with AI-powered features, built wi
 
 ---
 
+## 📸 Screenshots
+
+### Dashboard
+![Dashboard](screenshot/dashboard.png)
+
+### Issue Page
+![Issue Page](screenshot/issue_page.png)
+
+### Team Page
+![Team Page](screenshot/team.png)
+
+### Reports Page
+![Reports Page](screenshot/reports.png)
+
+### Settings Page
+![Settings Page](screenshot/settings.png)
+
+### AI Chatbot
+![AI Chatbot](screenshot/chatbot.png)
+
+---
+
 ## Backend Setup (FastAPI)
 
 1. **Clone the repository:**
