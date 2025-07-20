@@ -47,6 +47,14 @@ A full-stack, real-time issue tracking system with AI-powered features, built wi
 ### AI Chatbot
 ![AI Chatbot](screenshot/chatbot.png)
 
+## 🎥 Video Demo
+
+Check out a full walkthrough of the Mini Issue Tracker in action:
+
+[![Watch the video demo](https://cdn.loom.com/sessions/thumbnails/2415232b4b2e4401985f93b9cb99be7c-with-play.gif)](https://www.loom.com/share/2415232b4b2e4401985f93b9cb99be7c?sid=aa802ff2-7148-4c95-8c60-f443fc3c3bee)
+
+Or watch directly on [Loom](https://www.loom.com/share/2415232b4b2e4401985f93b9cb99be7c?sid=aa802ff2-7148-4c95-8c60-f443fc3c3bee).
+
 ---
 
 ## Backend Setup (FastAPI)
