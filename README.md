@@ -1,2 +1,155 @@
-# issue_tracker
-Mini Issue Tracker 
+# Mini Issue Tracker
+
+A full-stack, real-time issue tracking system with AI-powered features, built with FastAPI, Strawberry GraphQL, PostgreSQL, React, and LangChain + Google Gemini.
+
+---
+
+## Table of Contents
+
+- [Project Overview](#project-overview)
+- [Backend Setup (FastAPI)](#backend-setup-fastapi)
+- [Frontend Setup (React)](#frontend-setup-react)
+- [GraphQL API Reference](#graphql-api-reference)
+  - [Queries](#queries)
+  - [Mutations](#mutations)
+  - [Subscriptions](#subscriptions)
+- [Tooling & AI Integration](#tooling--ai-integration)
+- [Known Limitations](#known-limitations)
+
+---
+
+## Project Overview
+
+- **Backend:** FastAPI, Strawberry GraphQL, async SQLAlchemy, PostgreSQL, Alembic
+- **Frontend:** React, Apollo Client, GraphQL, WebSockets
+- **AI:** LangChain + Google Gemini for description enhancement and chatbot
+- **Features:** Real-time updates, drag-and-drop Kanban, RBAC, JWT authentication, AI-powered descriptions, project-aware chatbot
+
+---
+
+## Backend Setup (FastAPI)
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repo-url>
+   cd Mini\ Issue\ Tracker/issue-tracker-backend
+   ```
+
+2. **Create and activate a virtual environment:**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Configure environment variables:**
+   - Copy `.env.example` to `.env` and fill in values (Postgres, Google Gemini API key, etc.)
+
+5. **Run database migrations:**
+   ```bash
+   alembic upgrade head
+   ```
+
+6. **Start the backend server:**
+   ```bash
+   uvicorn app.main:app --reload
+   ```
+
+---
+
+## Frontend Setup (React)
+
+1. **Navigate to the frontend directory:**
+   ```bash
+   cd ../issue-tracker-frontend
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Configure environment variables:**
+   - Copy `.env.example` to `.env` and set the backend GraphQL endpoint.
+
+---
+
+## GraphQL API Reference
+
+### Queries
+
+- `issues`: List all issues (with tags, enhancedDescription, etc.)
+- `issue(id: Int!)`: Get a single issue by ID
+- `users`: List all users
+- `tags`: List all tags
+- `me`: Get current user profile
+- `comments(issueId: Int!)`: List comments for an issue
+
+### Mutations
+
+- `createIssue(input: IssueCreateInput!)`: Create a new issue (AI-enhanced description)
+- `updateIssue(input: IssueUpdateInput!)`: Update an issue (only by reporter, AI-enhanced)
+- `deleteIssue(id: Int!)`: Delete an issue (only by reporter)
+- `createTag`, `updateTag`, `deleteTag`
+- `addComment(input: CommentCreateInput!)`
+- `login(email, password)`: Get JWT token
+- `createUser(input: UserCreateInput!)`
+- `askChatbot(question: String!)`: Ask the AI-powered project chatbot
+
+### Subscriptions
+
+- `issueCreated`: Real-time issue creation
+- `issueUpdated`: Real-time issue updates
+- `issueStatusChanged(issueId: Int!)`: Real-time status changes
+
+---
+
+## Tooling & AI Integration
+
+- **Backend:**
+  - FastAPI (REST + GraphQL)
+  - Strawberry GraphQL (schema, subscriptions)
+  - async SQLAlchemy (PostgreSQL ORM)
+  - Alembic (migrations)
+  - JWT (authentication)
+  - WebSockets (real-time updates)
+  - **LangChain + Google Gemini**: Used in `app/services/ai.py` for:
+    - Enhancing issue descriptions (clarity, bullet points, markdown)
+    - Powering the project-aware chatbot (`askChatbot` mutation)
+- **Frontend:**
+  - React (UI)
+  - Apollo Client (GraphQL queries, mutations, subscriptions)
+  - react-beautiful-dnd, dnd-kit (drag-and-drop)
+  - Tailwind CSS (styling)
+  - react-markdown, rehype-highlight (markdown rendering)
+
+---
+
+## Known Limitations
+
+- **AI Limitations:**
+  - Google Gemini may occasionally misinterpret vague descriptions.
+  - Chatbot answers depend on the quality of project data and prompt engineering.
+- **Authentication:**
+  - JWT tokens must be managed by the frontend; token expiry is not auto-handled.
+- **RBAC:**
+  - Only basic role-based permissions; no granular field-level access.
+- **Subscriptions:**
+  - Real-time updates require WebSocket support in client and server environments.
+- **Testing:**
+  - Limited automated test coverage; manual testing recommended for critical flows.
+- **Accessibility:**
+  - UI accessibility and mobile responsiveness are basic; further improvements possible.
+
+---
+
+**For questions or contributions, please open an issue or contact the maintainers.** 

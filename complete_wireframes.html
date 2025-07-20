@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Tracker - Interactive Wireframes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #334155;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .header h1 {
+            font-size: 36px;
+            color: #1e293b;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tabs {
+            display: flex;
+            background: white;
+            border-radius: 15px;
+            padding: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            gap: 8px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            background: transparent;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #64748b;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .wireframe {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            margin-bottom: 30px;
+        }
+
+        .wireframe.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .wireframe-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .wireframe-content {
+            padding: 30px;
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .login-left {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-right {
+            background: white;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            background: #f9fafb;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Dashboard Styles */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 600px;
+            gap: 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .sidebar {
+            background: #1f2937;
+            color: white;
+            padding: 30px 20px;
+        }
+
+        .sidebar-logo {
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #374151;
+            text-align: center;
+        }
+
+        .sidebar-item {
+            padding: 15px 20px;
+            margin-bottom: 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-item:hover {
+            background: #374151;
+            transform: translateX(5px);
+        }
+
+        .sidebar-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .main-content {
+            background: #f8fafc;
+            padding: 30px;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* Kanban Board Styles */
+        .filters-bar {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .select, .search-input {
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .select:focus, .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .kanban-column {
+            background: #f1f5f9;
+            border-radius: 15px;
+            padding: 20px;
+            min-height: 500px;
+            transition: all 0.3s ease;
+        }
+
+        .column-header {
+            padding: 15px 20px;
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .column-header.open::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #10b981;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .column-header.progress::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #f59e0b;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .column-header.closed::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #6b7280;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .issue-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+
+        .issue-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .issue-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #1e293b;
+            font-size: 16px;
+        }
+
+        .issue-description {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .issue-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .priority-badge {
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .priority-high { background: #fee2e2; color: #dc2626; }
+        .priority-medium { background: #fef3c7; color: #d97706; }
+        .priority-low { background: #dcfce7; color: #16a34a; }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 75px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #6b7280;
+            transition: all 0.3s ease;
+            padding: 5px;
+            border-radius: 50%;
+        }
+
+        .close-btn:hover {
+            background: #f3f4f6;
+            color: #ef4444;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            background: #f9fafb;
+            resize: vertical;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .ai-enhance-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .ai-enhance-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .ai-enhanced-preview {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #0ea5e9;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        /* Mobile Responsive */
+        .mobile-frame {
+            width: 320px;
+            height: 640px;
+            border: 8px solid #1f2937;
+            border-radius: 30px;
+            background: white;
+            overflow: hidden;
+            position: relative;
+            margin: 0 auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .mobile-notch {
+            height: 25px;
+            background: #1f2937;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-notch::after {
+            content: '';
+            width: 120px;
+            height: 6px;
+            background: #374151;
+            border-radius: 3px;
+        }
+
+        .mobile-content {
+            padding: 20px;
+            height: calc(100% - 25px - 60px);
+            overflow-y: auto;
+        }
+
+        .mobile-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 12px 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .mobile-nav-item {
+            text-align: center;
+            color: #6b7280;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav-item.active {
+            color: #667eea;
+        }
+
+        .mobile-nav-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .responsive-note {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 2px solid #3b82f6;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            color: #1e40af;
+        }
+
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+            
+            .kanban-board {
+                grid-template-columns: 1fr;
+            }
+            
+            .login-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .login-left {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Issue Tracker - Interactive Wireframes</h1>
+            <p>Complete user interface design with all required features</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showWireframe('login')">🔐 Login</button>
+            <button class="tab" onclick="showWireframe('dashboard')">📊 Dashboard</button>
+            <button class="tab" onclick="showWireframe('kanban')">📋 Kanban Board</button>
+            <button class="tab" onclick="showWireframe('modal')">✨ Create Issue</button>
+            <button class="tab" onclick="showWireframe('team')">👥 Team</button>
+            <button class="tab" onclick="showWireframe('mobile')">📱 Mobile</button>
+        </div>
+
+        <!-- Login Page -->
+        <div class="wireframe active" id="login">
+            <div class="wireframe-header">🔐 Authentication Page</div>
+            <div class="wireframe-content">
+                <div class="login-container">
+                    <div class="login-left">
+                        <h2 style="font-size: 32px; margin-bottom: 20px;">Welcome to Issue Tracker</h2>
+                        <p style="margin-bottom: 30px; opacity: 0.9; font-size: 18px; line-height: 1.6;">
+                            Manage your projects efficiently with AI-powered issue tracking and real-time collaboration.
+                        </p>
+                        <div style="margin-top: 30px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 15px; font-size: 16px;">
+                                <span style="margin-right: 10px;">✨</span>AI-enhanced descriptions
+                            </div>
+                            <div style="display: flex; align-items: center; margin-bottom: 15px; font-size: 16px;">
+                                <span style="margin-right: 10px;">🔄</span>Real-time updates
+                            </div>
+                            <div style="display: flex; align-items: center; margin-bottom: 15px; font-size: 16px;">
+                                <span style="margin-right: 10px;">📋</span>Kanban board workflow
+                            </div>
+                            <div style="display: flex; align-items: center; font-size: 16px;">
+                                <span style="margin-right: 10px;">👥</span>Team collaboration
+                            </div>
+                        </div>
+                    </div>
+                    <div class="login-right">
+                        <h3 style="margin-bottom: 30px; color: #1e293b; font-size: 28px;">Sign In</h3>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" placeholder="john@example.com" value="">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-input" placeholder="••••••••" value="">
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%; margin-bottom: 20px;">Sign In</button>
+                        <div style="text-align: center; color: #6b7280;">
+                            Don't have an account? <a href="#" style="color: #667eea; text-decoration: none; font-weight: 600;">Sign up</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="wireframe" id="dashboard">
+            <div class="wireframe-header">📊 Main Dashboard</div>
+            <div class="wireframe-content">
+                <div class="dashboard-layout">
+                    <div class="sidebar">
+                        <div class="sidebar-logo">🎯 Issue Tracker</div>
+                        <div class="sidebar-item active">
+                            <span>📊</span> Dashboard
+                        </div>
+                        <div class="sidebar-item">
+                            <span>📋</span> Issues
+                        </div>
+                        <div class="sidebar-item">
+                            <span>👥</span> Team
+                        </div>
+                        <div class="sidebar-item">
+                            <span>📈</span> Reports
+                        </div>
+                        <div class="sidebar-item">
+                            <span>⚙️</span> Settings
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="dashboard-header">
+                            <div>
+                                <h2 style="color: #1e293b; font-size: 28px;">Dashboard</h2>
+                                <p style="color: #64748b; margin-top: 5px;">Track your project progress</p>
+                            </div>
+                            <div style="display: flex; gap: 15px; align-items: center;">
+                                <button class="btn btn-primary">+ New Issue</button>
+                                <div style="width: 45px; height: 45px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">JD</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number" style="color: #10b981;">24</div>
+                                <div class="stat-label">Open Issues</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" style="color: #f59e0b;">8</div>
+                                <div class="stat-label">In Progress</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" style="color: #6b7280;">156</div>
+                                <div class="stat-label">Completed</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" style="color: #667eea;">5</div>
+                                <div class="stat-label">Team Members</div>
+                            </div>
+                        </div>
+
+                        <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                            <h3 style="margin-bottom: 20px; color: #1e293b; font-size: 20px;">Recent Activity</h3>
+                            <div>
+                                <div style="padding: 15px; background: #f8fafc; border-radius: 10px; margin-bottom: 12px; border-left: 4px solid #10b981;">
+                                    <div style="font-weight: 600;">John Doe</div>
+                                    <div style="margin: 5px 0;">Created issue <span style="color: #667eea; font-weight: 600;">#127</span> - "Fix login validation"</div>
+                                    <div style="font-size: 12px; color: #64748b;">2 minutes ago</div>
+                                </div>
+                                <div style="padding: 15px; background: #f8fafc; border-radius: 10px; margin-bottom: 12px; border-left: 4px solid #f59e0b;">
+                                    <div style="font-weight: 600;">Sarah Wilson</div>
+                                    <div style="margin: 5px 0;">Moved issue <span style="color: #667eea; font-weight: 600;">#125</span> to "In Progress"</div>
+                                    <div style="font-size: 12px; color: #64748b;">15 minutes ago</div>
+                                </div>
+                                <div style="padding: 15px; background: #f8fafc; border-radius: 10px; border-left: 4px solid #6b7280;">
+                                    <div style="font-weight: 600;">Mike Chen</div>
+                                    <div style="margin: 5px 0;">Completed issue <span style="color: #667eea; font-weight: 600;">#123</span> - "Update API documentation"</div>
+                                    <div style="font-size: 12px; color: #64748b;">1 hour ago</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kanban Board -->
+        <div class="wireframe" id="kanban">
+            <div class="wireframe-header">📋 Kanban Board with Drag & Drop</div>
+            <div class="wireframe-content">
+                <div class="filters-bar">
+                    <div class="filter-group">
+                        <label style="font-weight: 600;">Status:</label>
+                        <select class="select">
+                            <option>All Status</option>
+                            <option>Open</option>
+                            <option>In Progress</option>
+                            <option>Closed</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label style="font-weight: 600;">Priority:</label>
+                        <select class="select">
+                            <option>All Priorities</option>
+                            <option>High</option>
+                            <option>Medium</option>
+                            <option>Low</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label style="font-weight: 600;">Assignee:</label>
+                        <select class="select">
+                            <option>All Assignees</option>
+                            <option>John Doe</option>
+                            <option>Sarah Wilson</option>
+                        </select>
+                    </div>
+                    <input type="text" class="search-input" placeholder="🔍 Search issues..." style="width: 280px;">
+                    <button class="btn btn-primary">+ New Issue</button>
+                </div>
+
+                <div class="kanban-board">
+                    <div class="kanban-column">
+                        <div class="column-header open">📋 Open (12)</div>
+                        <div class="issue-card">
+                            <div class="issue-title">Fix user authentication bug</div>
+                            <div class="issue-description">Users cannot log in with special characters in password. Need to update validation logic.</div>
+                            <div class="issue-meta">
+                                <span style="color: #64748b;">#127</span>
+                                <span class="priority-badge priority-high">High</span>
+                            </div>
+                        </div>
+                        <div class="issue-card">
+                            <div class="issue-title">Update API documentation</div>
+                            <div class="issue-description">Add examples for new endpoints and update response schemas.</div>
+                            <div class="issue-meta">
+                                <span style="color: #64748b;">#126</span>
+                                <span class="priority-badge priority-medium">Medium</span>
+                            </div>
+                        </div>
+                        <div class="issue-card">
+                            <div class="issue-title">Improve loading performance</div>
+                            <div class="issue-description">Dashboard takes too long to load with large datasets.</div>
+                            <div class="issue-meta">
+                                <span style="color: #64748b;">#125</span>
+                                <span class="priority-badge priority-low">Low</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="kanban-column">
+                        <div class="column-header progress">🔄 In Progress (5)</div>
+                        <div class="issue-card">
+                            <div class="issue-title">Implement real-time notifications</div>
+                            <div class="issue-description">WebSocket integration for live updates across the application.</div>
+                            <div class="issue-meta">
+                                <span style="color: #64748b;">#124</span>
+                                <span class="priority-badge priority-high">High</span>
+                            </div>
+                        </div>
+                        <div class="issue-card">
+                            <div class="issue-title">Design mobile interface</div>
+                            <div class="issue-description">Create responsive design for mobile devices and tablets.</div>
+                            <div class="issue-meta">
+                                <span style="color: #64748b;">#123</span>
+                                <span class="priority-badge priority-medium">Medium</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="kanban-column">
+                        <div class="column-header closed">✅ Closed (8)</div>
+                        <div class="issue-card" style="opacity: 0.7;">
+                            <div class="issue-title">Setup CI/CD pipeline</div>
+                            <div class="issue-description">Automated testing and deployment workflow configuration.</div>
+                            <div class="issue-meta">
+                                <span style="color: #64748b;">#122</span>
+                                <span class="priority-badge priority-medium">Medium</span>
+                            </div>
+                        </div>
+                        <div class="issue-card" style="opacity: 0.7;">
+                            <div class="issue-title">Database optimization</div>
+                            <div class="issue-description">Query performance improvements and indexing.</div>
+                            <div class="issue-meta">
+                                <span style="color: #64748b;">#121</span>
+                                <span class="priority-badge priority-high">High</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Create Issue Modal -->
+        <div class="wireframe" id="modal">
+            <div class="wireframe-header">✨ AI-Enhanced Issue Creation</div>
+            <div class="wireframe-content">
+                <div class="modal-overlay" style="position: relative; background: rgba(0,0,0,0.1);">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <div class="modal-title">Create New Issue</div>
+                            <button class="close-btn">×</button>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Title *</label>
+                            <input type="text" class="form-input" placeholder="Enter issue title" value="Login form validation issue">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Status</label>
+                                <select class="form-input">
+                                    <option>Open</option>
+                                    <option>In Progress</option>
+                                    <option>Closed</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Priority</label>
+                                <select class="form-input">
+                                    <option>Medium</option>
+                                    <option>Low</option>
+                                    <option>High</option>
+                                    <option>Urgent</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Assignee</label>
+                            <select class="form-input">
+                                <option>Select assignee...</option>
+                                <option>John Doe</option>
+                                <option>Sarah Wilson</option>
+                                <option>Mike Chen</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Description (Markdown supported)</label>
+                            <textarea class="textarea" placeholder="Describe the issue in your own words...">Login form doesn't work when password has special chars like @ or #. Users get error message.</textarea>
+                            <button class="ai-enhance-btn">✨ Enhance with AI</button>
+                            <div style="margin-top: 10px; padding: 10px; background: #f0f9ff; border-radius: 8px; font-size: 14px; color: #0369a1;">
+                                💡 AI will transform your description into a clear, professional format
+                            </div>
+                        </div>
+                        
+                        <div class="ai-enhanced-preview">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <label style="font-weight: 700; color: #0369a1; font-size: 16px;">✨ AI-Enhanced Description:</label>
+                                <button style="background: none; border: none; color: #0369a1; cursor: pointer; font-size: 18px;">×</button>
+                            </div>
+                            <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #0ea5e9;">
+                                <div style="margin-bottom: 15px;">
+                                    <strong style="color: #1e293b;">Issue Summary:</strong><br>
+                                    User authentication fails when passwords contain special characters
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <strong style="color: #1e293b;">Problem Description:</strong><br>
+                                    The login form validation system does not properly handle special characters (@, #, $, etc.) in user passwords, resulting in authentication failures for valid user credentials.
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <strong style="color: #1e293b;">Steps to Reproduce:</strong><br>
+                                    1. Navigate to the login form<br>
+                                    2. Enter valid email address<br>
+                                    3. Enter password containing special characters<br>
+                                    4. Click "Sign In" button
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <strong style="color: #1e293b;">Expected Result:</strong><br>
+                                    User should be successfully authenticated and redirected to dashboard
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <strong style="color: #1e293b;">Actual Result:</strong><br>
+                                    Authentication fails with validation error message
+                                </div>
+                                <div>
+                                    <strong style="color: #1e293b;">Priority Justification:</strong><br>
+                                    High priority - Blocks user access to the application
+                                </div>
+                            </div>
+                            <div style="margin-top: 15px; padding: 10px; background: rgba(16, 185, 129, 0.1); border-radius: 8px; color: #059669; font-size: 14px;">
+                                ✅ This enhanced version will be used when you create the issue
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 15px; justify-content: flex-end; margin-top: 30px;">
+                            <button class="btn" style="background: #f3f4f6; color: #374151; border: 2px solid #e5e7eb;">Cancel</button>
+                            <button class="btn btn-primary">Create Issue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Management -->
+        <div class="wireframe" id="team">
+            <div class="wireframe-header">👥 Team Collaboration</div>
+            <div class="wireframe-content">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <div>
+                        <h3 style="color: #1e293b; margin-bottom: 8px; font-size: 24px;">Team Members</h3>
+                        <p style="color: #64748b;">Manage your project team and permissions</p>
+                    </div>
+                    <button class="btn btn-primary">+ Invite Member</button>
+                </div>
+                
+                <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 100px; padding: 20px 25px; background: #f8fafc; font-weight: 700; color: #374151; border-bottom: 2px solid #e5e7eb;">
+                        <div>Member</div>
+                        <div>Role</div>
+                        <div>Issues Assigned</div>
+                        <div>Last Active</div>
+                        <div>Actions</div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 100px; padding: 20px 25px; border-bottom: 1px solid #f1f5f9; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">JD</div>
+                            <div>
+                                <div style="font-weight: 600; color: #1e293b; font-size: 16px;">John Doe</div>
+                                <div style="font-size: 14px; color: #64748b;">john@example.com</div>
+                            </div>
+                        </div>
+                        <div><span style="background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 15px; font-size: 12px; font-weight: 600;">Admin</span></div>
+                        <div style="color: #374151; font-weight: 600;">8 issues</div>
+                        <div style="color: #64748b;">2 hours ago</div>
+                        <div><button style="background: none; border: none; color: #6b7280; cursor: pointer; font-size: 20px; padding: 5px;">⋮</button></div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 100px; padding: 20px 25px; border-bottom: 1px solid #f1f5f9; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="width: 50px; height: 50px; background: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">SW</div>
+                            <div>
+                                <div style="font-weight: 600; color: #1e293b; font-size: 16px;">Sarah Wilson</div>
+                                <div style="font-size: 14px; color: #64748b;">sarah@example.com</div>
+                            </div>
+                        </div>
+                        <div><span style="background: #f3f4f6; color: #374151; padding: 6px 12px; border-radius: 15px; font-size: 12px; font-weight: 600;">Member</span></div>
+                        <div style="color: #374151; font-weight: 600;">5 issues</div>
+                        <div style="color: #64748b;">1 day ago</div>
+                        <div><button style="background: none; border: none; color: #6b7280; cursor: pointer; font-size: 20px; padding: 5px;">⋮</button></div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 100px; padding: 20px 25px; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="width: 50px; height: 50px; background: #f59e0b; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">MC</div>
+                            <div>
+                                <div style="font-weight: 600; color: #1e293b; font-size: 16px;">Mike Chen</div>
+                                <div style="font-size: 14px; color: #64748b;">mike@example.com</div>
+                            </div>
+                        </div>
+                        <div><span style="background: #f3f4f6; color: #374151; padding: 6px 12px; border-radius: 15px; font-size: 12px; font-weight: 600;">Member</span></div>
+                        <div style="color: #374151; font-weight: 600;">3 issues</div>
+                        <div style="color: #64748b;">3 hours ago</div>
+                        <div><button style="background: none; border: none; color: #6b7280; cursor: pointer; font-size: 20px; padding: 5px;">⋮</button></div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 40px; padding: 25px; background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border: 2px solid #f59e0b; border-radius: 15px;">
+                    <h4 style="color: #92400e; margin-bottom: 15px; font-size: 18px; font-weight: 700;">💌 Invite New Team Member</h4>
+                    <div style="display: flex; gap: 20px; align-items: end;">
+                        <div style="flex: 1;">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" placeholder="colleague@company.com">
+                        </div>
+                        <div>
+                            <label class="form-label">Role</label>
+                            <select class="form-input" style="width: 140px;">
+                                <option>Member</option>
+                                <option>Admin</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary">Send Invite</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Design -->
+        <div class="wireframe" id="mobile">
+            <div class="wireframe-header">📱 Mobile Responsive Design</div>
+            <div class="wireframe-content">
+                <div style="display: flex; gap: 40px; justify-content: center; flex-wrap: wrap;">
+                    <!-- Mobile Dashboard -->
+                    <div>
+                        <h4 style="text-align: center; margin-bottom: 15px; color: #374151; font-weight: 600;">Dashboard View</h4>
+                        <div class="mobile-frame">
+                            <div class="mobile-notch"></div>
+                            <div class="mobile-content">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                                    <div>
+                                        <h3 style="color: #1e293b; font-size: 20px; margin-bottom: 5px;">Dashboard</h3>
+                                        <p style="color: #64748b; font-size: 14px;">Good morning, John!</p>
+                                    </div>
+                                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; font-weight: 700;">JD</div>
+                                </div>
+                                
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px;">
+                                    <div style="background: #f8fafc; padding: 20px; border-radius: 12px; text-align: center; border-left: 4px solid #10b981;">
+                                        <div style="font-size: 24px; font-weight: 800; color: #10b981;">24</div>
+                                        <div style="font-size: 12px; color: #64748b; margin-top: 5px;">Open</div>
+                                    </div>
+                                    <div style="background: #f8fafc; padding: 20px; border-radius: 12px; text-align: center; border-left: 4px solid #f59e0b;">
+                                        <div style="font-size: 24px; font-weight: 800; color: #f59e0b;">8</div>
+                                        <div style="font-size: 12px; color: #64748b; margin-top: 5px;">Progress</div>
+                                    </div>
+                                </div>
+                                
+                                <h4 style="color: #1e293b; margin-bottom: 15px; font-size: 18px; font-weight: 600;">Your Issues</h4>
+                                
+                                <div>
+                                    <div style="background: white; border: 1px solid #e5e7eb; border-radius: 10px; padding: 15px; margin-bottom: 12px; border-left: 4px solid #667eea;">
+                                        <div style="font-weight: 600; font-size: 15px; color: #1e293b; margin-bottom: 8px;">Fix authentication bug</div>
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <span style="font-size: 12px; color: #64748b;">#127</span>
+                                            <span style="background: #fee2e2; color: #dc2626; padding: 3px 8px; border-radius: 10px; font-size: 10px; font-weight: 600;">High</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="background: white; border: 1px solid #e5e7eb; border-radius: 10px; padding: 15px; margin-bottom: 12px; border-left: 4px solid #667eea;">
+                                        <div style="font-weight: 600; font-size: 15px; color: #1e293b; margin-bottom: 8px;">Update documentation</div>
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <span style="font-size: 12px; color: #64748b;">#126</span>
+                                            <span style="background: #fef3c7; color: #d97706; padding: 3px 8px; border-radius: 10px; font-size: 10px; font-weight: 600;">Medium</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mobile-nav">
+                                <div class="mobile-nav-item active">
+                                    <div class="mobile-nav-icon">📊</div>
+                                    <div>Dashboard</div>
+                                </div>
+                                <div class="mobile-nav-item">
+                                    <div class="mobile-nav-icon">📋</div>
+                                    <div>Issues</div>
+                                </div>
+                                <div class="mobile-nav-item">
+                                    <div class="mobile-nav-icon">👥</div>
+                                    <div>Team</div>
+                                </div>
+                                <div class="mobile-nav-item">
+                                    <div class="mobile-nav-icon">⚙️</div>
+                                    <div>Settings</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile Issue List -->
+                    <div>
+                        <h4 style="text-align: center; margin-bottom: 15px; color: #374151; font-weight: 600;">Issues List View</h4>
+                        <div class="mobile-frame">
+                            <div class="mobile-notch"></div>
+                            <div class="mobile-content">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                    <h3 style="color: #1e293b; font-size: 20px;">Issues</h3>
+                                    <button style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 600; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);">+</button>
+                                </div>
+                                
+                                <input type="text" style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 10px; font-size: 14px; margin-bottom: 20px; background: #f9fafb;" placeholder="🔍 Search issues...">
+                                
+                                <div style="display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px;">
+                                    <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; white-space: nowrap; font-weight: 600;">All</span>
+                                    <span style="background: #f3f4f6; color: #374151; padding: 8px 16px; border-radius: 20px; font-size: 12px; white-space: nowrap; font-weight: 600;">Open</span>
+                                    <span style="background: #f3f4f6; color: #374151; padding: 8px 16px; border-radius: 20px; font-size: 12px; white-space: nowrap; font-weight: 600;">Progress</span>
+                                    <span style="background: #f3f4f6; color: #374151; padding: 8px 16px; border-radius: 20px; font-size: 12px; white-space: nowrap; font-weight: 600;">Closed</span>
+                                </div>
+                                
+                                <div>
+                                    <div style="background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 18px; margin-bottom: 15px; border-left: 4px solid #667eea; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                                            <div style="font-weight: 600; color: #1e293b; font-size: 15px; line-height: 1.3;">Fix user authentication bug</div>
+                                            <span style="background: #fee2e2; color: #dc2626; padding: 3px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; margin-left: 10px;">High</span>
+                                        </div>
+                                        <p style="font-size: 13px; color: #64748b; line-height: 1.4; margin-bottom: 12px;">Users cannot log in with special characters in password</p>
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <span style="font-size: 12px; color: #64748b;">#127</span>
+                                            <span style="background: #dcfce7; color: #16a34a; padding: 3px 8px; border-radius: 10px; font-size: 10px; font-weight: 600;">Open</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 18px; margin-bottom: 15px; border-left: 4px solid #f59e0b; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                                            <div style="font-weight: 600; color: #1e293b; font-size: 15px; line-height: 1.3;">Implement notifications</div>
+                                            <span style="background: #fef3c7; color: #d97706; padding: 3px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; margin-left: 10px;">Medium</span>
+                                        </div>
+                                        <p style="font-size: 13px; color: #64748b; line-height: 1.4; margin-bottom: 12px;">Real-time WebSocket integration for live updates</p>
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <span style="font-size: 12px; color: #64748b;">#124</span>
+                                            <span style="background: #fef3c7; color: #d97706; padding: 3px 8px; border-radius: 10px; font-size: 10px; font-weight: 600;">Progress</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mobile-nav">
+                                <div class="mobile-nav-item">
+                                    <div class="mobile-nav-icon">📊</div>
+                                    <div>Dashboard</div>
+                                </div>
+                                <div class="mobile-nav-item active">
+                                    <div class="mobile-nav-icon">📋</div>
+                                    <div>Issues</div>
+                                </div>
+                                <div class="mobile-nav-item">
+                                    <div class="mobile-nav-icon">👥</div>
+                                    <div>Team</div>
+                                </div>
+                                <div class="mobile-nav-item">
+                                    <div class="mobile-nav-icon">⚙️</div>
+                                    <div>Settings</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="responsive-note">
+            <strong>📝 Implementation Notes:</strong>
+            <ul style="margin-top: 15px; margin-left: 25px; line-height: 1.8;">
+                <li><strong>Real-time Features:</strong> WebSocket subscriptions for live issue updates and typing indicators</li>
+                <li><strong>AI Integration:</strong> LangChain + Google Gemini for description enhancement with preview</li>
+                <li><strong>Drag & Drop:</strong> React Beautiful DnD for Kanban board functionality</li>
+                <li><strong>Markdown Support:</strong> Live preview editor with syntax highlighting and @mentions</li>
+                <li><strong>Mobile Responsive:</strong> Touch-friendly interfaces with native app feel</li>
+                <li><strong>Performance:</strong> Optimistic UI updates and efficient caching strategies</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function showWireframe(wireframeId) {
+            // Hide all wireframes
+            const wireframes = document.querySelectorAll('.wireframe');
+            wireframes.forEach(w => w.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            
+            // Show selected wireframe
+            document.getElementById(wireframeId).classList.add('active');
+            
+            // Activate clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
